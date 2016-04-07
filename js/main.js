@@ -6,6 +6,7 @@ function randomInts(range) {
 	var res = [];
 	while (res.length < range) {
 		var num = Math.ceil(Math.random() * range);
+        // console.log(num);
 		if (res.indexOf(num) >= 0 || res.length + 1 == num) {
 			continue;
 		}
@@ -15,8 +16,9 @@ function randomInts(range) {
 }
 
 function initGame1() {
-	loadCount = GAME1_SIZE * GAME1_SIZE + 1;
-	$('#game_section1 #img_area')[0].innerHTML = '<img src="img/Lenna.png" width=100% onload="loadCount--;checkLoad(loadCount, 1);">'
+	loadCount = GAME1_SIZE * GAME1_SIZE + 2;
+    $('#game_section1 #img_area')[0].innerHTML = '<img src="img/Lenna.png" width=100% onload="loadCount--;checkLoad(loadCount, 1);">'
+	$('#game1_cache').append('<img class="game1_imgback" src="img/kuma.jpg" width=100% onload="loadCount--;checkLoad(loadCount, 1);">');
 	var item = $('#game_section1 table');
 	// item[0].innerHTML = '';
 
@@ -57,7 +59,7 @@ function checkLoad(count, section) {
 function game1Random() {
 	// console.log(1);
 	// $('td').css('padding','0.8%');
-	$('#game_section1 #img_area').hide();
+	$('#game_section1 .mask').hide();
     // TODO: 这里还要加上一些动画OMG...
 	var ints = randomInts(GAME1_SIZE * GAME1_SIZE);
     for (var i = 0; i < GAME1_SIZE; i++) {
