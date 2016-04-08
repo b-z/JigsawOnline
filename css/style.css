@@ -30,58 +30,62 @@
 }*/
 
 body {
-    background-color: whitesmoke!important;
-    margin: 0;
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
+	background-color: whitesmoke!important;
+	margin: 0;
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
 }
 main {
-    flex: 1 0 auto;
+	flex: 1 0 auto;
 }
 body, html {
-    color: #846C63!important;
+	color: #846C63!important;
 }
 nav, .brand-logo {
-    background-color: #ffffff!important;
-    color: #846C63!important;
+	background-color: #ffffff!important;
+	color: #846C63!important;
 }
 a {
-    color: #88AAA9!important;
+	color: #88AAA9!important;
 }
 .footer-copyright {
-    background-color: rgba(51, 51, 51, 0.08);
-    height: 50px;
-    line-height: 50px;
-    color: white;
+	background-color: rgba(51, 51, 51, 0.08);
+	height: 50px;
+	line-height: 50px;
+	color: white;
 }
 td {
-    /*padding: 0;*/
-    padding: 0.8%;
-    text-align: center;
-    line-height: 0;
-    /*border:1px solid blue;*/
+	/*padding: 0;*/
+	padding: 0.8%;
+	text-align: center;
+	line-height: 0;
+	/*border:1px solid blue;*/
 }
 .game_section_area {
-    position: relative;
+	position: relative;
 }
 .game_section_area .mask {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    text-align: center;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
 }
 .countdown {
-    width: 100%;
-    color: #A8FFCB;
-    font-size: 14em;
-    /*border:1px solid blue;*/
+	width: 100%;
+	color: #A8FFCB;
+	font-size: 14em;
+	/*border:1px solid blue;*/
 }
 td div {
-    background-color: rgba(51, 51, 51, 0.08);
+	/*background-color: rgba(51, 51, 51, 0.08);*/
 }
-td div img{
-    border-radius: 0.3em;
+td div img {
+	border-radius: 0.3em;
+	transition: transform 0.2s ;
+	-moz-transition: -moz-transform 0.2s ;
+	-webkit-transition: -webkit-transform 0.2s ;
+	-o-transition: -o-transform 0.2s ;
 }
