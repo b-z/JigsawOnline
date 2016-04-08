@@ -61,32 +61,42 @@ function game1Random() {
 	// $('td').css('padding','0.8%');
 	$('#game_section1 .mask').hide();
 	// TODO: 这里还要加上一些动画OMG...
-	// UPDATE: 动画来了
+	// UPDATE: 动画来啦 啦啦啦
 
 	$('td div').html($('.game1_imgback'));
 	// $('td div').each(function(i, e) {
 	//     console.log(e);
 	//     $(e).css('transform', 'rotateX('+Math.random()*360+')')
 	// });
-    for (var i = 0; i < GAME1_SIZE * GAME1_SIZE; i++) {
-        animate(i+1, 3);
-    }
 
-	setTimeout(function() {
-		var ints = randomInts(GAME1_SIZE * GAME1_SIZE);
-		for (var i = 0; i < GAME1_SIZE; i++) {
-			for (var j = 0; j < GAME1_SIZE; j++) {
-				var idx = i * GAME1_SIZE + j + 1;
-				$('#game1_img' + idx + '_container').html(game1_img_list[ints[idx - 1] - 1]);
-				console.log(idx);
-			}
-		}
-	}, 1600);
+	var limit = {
+		x1: $('#game1_img1_container').offset().left,
+		y1: $('#game1_img1_container').offset().top,
+		x2: $('#game1_img' + (GAME1_SIZE * GAME1_SIZE) + '_container').offset().left,
+		y2: $('#game1_img' + (GAME1_SIZE * GAME1_SIZE) + '_container').offset().top
+	};
+	var ints = randomInts(GAME1_SIZE * GAME1_SIZE);
+	for (var i = 0; i < GAME1_SIZE * GAME1_SIZE; i++) {
+		animate(i + 1, limit, ints, 3);
+	}
+	console.log(11);
+
+	// setTimeout(function() {
+	// 	console.log(22);
+	// 	var ints = randomInts(GAME1_SIZE * GAME1_SIZE);
+	// 	for (var i = 0; i < GAME1_SIZE; i++) {
+	// 		for (var j = 0; j < GAME1_SIZE; j++) {
+	// 			var idx = i * GAME1_SIZE + j + 1;
+	// 			$('#game1_img' + idx + '_container').html(game1_img_list[ints[idx - 1] - 1]);
+	// 			console.log(idx);
+	// 		}
+	// 	}
+	// }, 1800);
 
 	// $('td div img').css('opacity', '0');
 }
 
-function animate(idx, count) {
+function animate(idx, limit, ints, count) {
 	console.log('ani', count);
 	if (count < 0) {
 		return;
@@ -94,18 +104,30 @@ function animate(idx, count) {
 	if (count == 0) {
 		setTimeout(function() {
 			// for (var i = 0; i < GAME1_SIZE * GAME1_SIZE; i++) {
-				$('#game1_img' + idx + '_container')[0].children[0].style.transform =
-					'rotate(' + 0 + 'deg)';
+			$('#game1_img' + idx + '_container')[0].children[0].style.transform =
+				'translate(' + 0 + 'px,' + 0 + 'px) rotate(' + 0 + 'deg)';
 			// }
+			$('#game1_img' + idx + '_container').html(game1_img_list[ints[idx - 1] - 1]);
 		}, Math.floor(500 * Math.random()));
 		return;
 	}
 	setTimeout(function() {
 		// for (var i = 0; i < GAME1_SIZE * GAME1_SIZE; i++) {
-			$('#game1_img' + idx + '_container')[0].children[0].style.transform =
-				'rotate(' + (Math.random() > 0.5 ? '+' : '-') + Math.random() * 360 + 'deg)';
+
+		var offset = $('#game1_img' + idx + '_container').offset();
+		var transXlow = limit.x1 - offset.left;
+		var transXhigh = limit.x2 - offset.left;
+		var transYlow = limit.y1 - offset.top;
+		var transYhigh = limit.y2 - offset.top;
+		// console.log(limit.y2-offset.top)
+		var transX = transXlow + Math.random() * (transXhigh - transXlow);
+		var transY = transYlow + Math.random() * (transYhigh - transYlow);
+		console.log(idx, transXlow, transXhigh, transX);
+		$('#game1_img' + idx + '_container')[0].children[0].style.transform =
+			'translate(' + 1.5 * transX + 'px,' + 1.5 * transY + 'px)' +
+			'rotate(' + (-360 + Math.random() * 720) + 'deg) ';
 		// }
-		animate(idx, count - 1);
+		animate(idx, limit, ints, count - 1);
 	}, Math.floor(500 * Math.random()));
 }
 
