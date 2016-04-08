@@ -68,8 +68,9 @@ function game1Random() {
 	//     console.log(e);
 	//     $(e).css('transform', 'rotateX('+Math.random()*360+')')
 	// });
-
-    animate(3);
+    for (var i = 0; i < GAME1_SIZE * GAME1_SIZE; i++) {
+        animate(i+1, 3);
+    }
 
 	setTimeout(function() {
 		var ints = randomInts(GAME1_SIZE * GAME1_SIZE);
@@ -77,7 +78,7 @@ function game1Random() {
 			for (var j = 0; j < GAME1_SIZE; j++) {
 				var idx = i * GAME1_SIZE + j + 1;
 				$('#game1_img' + idx + '_container').html(game1_img_list[ints[idx - 1] - 1]);
-                console.log(idx);
+				console.log(idx);
 			}
 		}
 	}, 1600);
@@ -85,27 +86,27 @@ function game1Random() {
 	// $('td div img').css('opacity', '0');
 }
 
-function animate(count) {
-    console.log('ani',count);
-    if (count<0){
-        return;
-    }
-    if (count==0){
-        setTimeout(function(){
-            for (var i = 0; i < GAME1_SIZE * GAME1_SIZE; i++) {
-                $('#game1_img' + (i + 1) + '_container')[0].children[0].style.transform =
-                    'rotate(' + 0 + 'deg)';
-            }
-        },400);
-        return;
-    }
-    setTimeout(function(){
-        for (var i = 0; i < GAME1_SIZE * GAME1_SIZE; i++) {
-            $('#game1_img' + (i + 1) + '_container')[0].children[0].style.transform =
-                'rotate(' + (Math.random() > 0.5 ? '+' : '-') + Math.random() * 360 + 'deg)';
-        }
-        animate(count-1);
-    },400);
+function animate(idx, count) {
+	console.log('ani', count);
+	if (count < 0) {
+		return;
+	}
+	if (count == 0) {
+		setTimeout(function() {
+			// for (var i = 0; i < GAME1_SIZE * GAME1_SIZE; i++) {
+				$('#game1_img' + idx + '_container')[0].children[0].style.transform =
+					'rotate(' + 0 + 'deg)';
+			// }
+		}, Math.floor(500 * Math.random()));
+		return;
+	}
+	setTimeout(function() {
+		// for (var i = 0; i < GAME1_SIZE * GAME1_SIZE; i++) {
+			$('#game1_img' + idx + '_container')[0].children[0].style.transform =
+				'rotate(' + (Math.random() > 0.5 ? '+' : '-') + Math.random() * 360 + 'deg)';
+		// }
+		animate(idx, count - 1);
+	}, Math.floor(500 * Math.random()));
 }
 
 function countdown(item, time, foo) {
