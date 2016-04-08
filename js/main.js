@@ -105,7 +105,7 @@ function animate(idx, limit, ints, count) {
 		setTimeout(function() {
 			// for (var i = 0; i < GAME1_SIZE * GAME1_SIZE; i++) {
 			$('#game1_img' + idx + '_container')[0].children[0].style.transform =
-				'translate(' + 0 + 'px,' + 0 + 'px) rotate(' + 0 + 'deg)';
+				'translate(' + 0 + 'px,' + (idx==9?100:0) + 'px) rotate(' + 0 + 'deg)';
 			// }
 			$('#game1_img' + idx + '_container').html(game1_img_list[ints[idx - 1] - 1]);
 		}, Math.floor(500 * Math.random()));
