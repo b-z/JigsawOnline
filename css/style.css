@@ -80,12 +80,16 @@ td {
 	/*border:1px solid blue;*/
 }
 td div {
-	/*background-color: rgba(51, 51, 51, 0.08);*/
+	background-color: rgba(51, 51, 51, 0.08);
 }
 td div img {
 	border-radius: 0.3em;
-	transition: transform 0.2s ;
-	-moz-transition: -moz-transform 0.2s ;
-	-webkit-transition: -webkit-transform 0.2s ;
-	-o-transition: -o-transform 0.2s ;
+	transition: transform 0.2s, border-radius 0.2s, opacity 0.2s;
+	-moz-transition: -moz-transform 0.2s, border-radius 0.2s, opacity 0.2s;
+	-webkit-transition: -webkit-transform 0.2s, border-radius 0.2s, opacity 0.2s;
+	-o-transition: -o-transform 0.2s, border-radius 0.2s, opacity 0.2s;
+}
+#game_section1{
+    max-width: 30em;
+    margin: auto;
 }

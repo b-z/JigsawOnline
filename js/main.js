@@ -1,5 +1,8 @@
 var GAME1_SIZE = 3;
 var game1_img_list = [];
+var flag_can_move = false;
+var flag_on_touch = false;
+var stage = 1;
 
 function randomInts(range) {
 	// 产生[1，range]的随机整数
@@ -81,10 +84,10 @@ function animate(idx, limit, ints, count) {
 	if (count == 0) {
 		setTimeout(function() {
 			$('#game1_img' + idx + '_container')[0].children[0].style.transform =
-            // 'translate(' + (idx == 1 ? -100 : 0) + 'px,' + (idx == 1 ? -200 : 0) + 'px) rotate(' + 0 + 'deg)';
 				'translate(' + 0 + 'px,' + 0 + 'px) rotate(' + 0 + 'deg)';
 			setTimeout(function() {
 				$('#game1_img' + idx + '_container').html(game1_img_list[ints[idx - 1] - 1]);
+				flag_can_move = true;
 			}, 500 * Math.random());
 		}, Math.floor(250 * Math.random()));
 		return;
@@ -118,6 +121,137 @@ function countdown(item, time, foo) {
 	}
 }
 
+function exchange(container1, container2, foo) {
+	flag_can_move = false;
+	var offset1 = container1.offset();
+	var offset2 = container2.offset();
+	var transX = offset2.left - offset1.left;
+	var transY = offset2.top - offset1.top;
+	container1[0].children[0].style.transform = 'translate(' + 1 * transX + 'px,' + 1 * transY + 'px)';
+	container2[0].children[0].style.transform = 'translate(' + (-1) * transX + 'px,' + (-1) * transY + 'px)';
+
+	setTimeout(function() {
+		container1[0].children[0].style.transform = 'translate(' + 0 + 'px,' + 0 + 'px)';
+		container2[0].children[0].style.transform = 'translate(' + 0 + 'px,' + 0 + 'px)';
+		var tmp = container1.children();
+		container1.html(container2.children());
+		container2.html(tmp);
+		foo();
+		flag_can_move = true;
+		flag_on_touch = false;
+	}, 200);
+	// setTimeout(function(){
+	//     var tmp = container1.children();
+	//     container1.html(container2.children());
+	//     container2.html(tmp);
+	// }, 400);
+}
+
+function game1_check() {
+	var imgs = $('#game_section1 td').children().children();
+	var result = true;
+	imgs.each(function(i, e) {
+		console.log(e);
+		if ($(e).attr('id').split('img')[1] != 1 + i + '') {
+			result = false;
+		}
+	});
+    if (result){
+        alert('yeah!');
+    }
+	return result;
+}
+
+function setHoverStyle(elements, remove) {
+	elements.each(function(i, e) {
+		var target = $(e);
+		if (!remove[i]) {
+			target.css('border-radius', '2em').css('opacity', '0.5');
+		} else {
+			target.css('border-radius', '0.3em').css('opacity', '1');
+		}
+	});
+}
+
+function ontouchstart(e) {
+	if (!flag_can_move) {
+		return;
+	}
+	if (e.srcElement.tagName != 'IMG') {
+		return;
+	}
+	flag_on_touch = true;
+	if (stage == 1) {
+		var flags = [];
+		for (var i = 0; i < GAME1_SIZE * GAME1_SIZE; i++) {
+			flags.push($('#game_section1 td img')[i] != e.srcElement);
+		}
+		setHoverStyle($('#game_section1 td img'), flags);
+	}
+	// console.log('start',e)
+}
+
+function ontouchmove(e) {
+	if (!flag_on_touch) {
+		return;
+	}
+	if (e.srcElement.tagName == 'IMG' || e.srcElement.tagName == 'td') {
+		e.preventDefault();
+	}
+	if (e.srcElement.tagName != 'IMG') {
+		return;
+	}
+
+	// console.log(e.target);
+	var x = e.changedTouches[e.changedTouches.length - 1].clientX;
+	var y = e.changedTouches[e.changedTouches.length - 1].clientY;
+	var source = e.srcElement;
+	var target = document.elementFromPoint(x, y);
+	if (stage == 1) {
+		var flags = [];
+		for (var i = 0; i < GAME1_SIZE * GAME1_SIZE; i++) {
+			flags.push($('#game_section1 td img')[i] != source && $('#game_section1 td img')[i] != target);
+		}
+		setHoverStyle($('#game_section1 td img'), flags);
+	}
+	// console.log(target);
+}
+
+function ontouchend(e) {
+	if (!flag_on_touch) {
+		return;
+	}
+	if (e.srcElement.tagName != 'IMG') {
+		return;
+	}
+	flag_on_touch = false;
+	var x = e.changedTouches[e.changedTouches.length - 1].clientX;
+	var y = e.changedTouches[e.changedTouches.length - 1].clientY;
+	var source = e.srcElement;
+	// var sourceid = source.id.split('img')[1];
+	var target = document.elementFromPoint(x, y);
+	// var targetid = target.id.split('img')[1];
+	if (stage == 1) {
+		var flags = [];
+		for (var i = 0; i < GAME1_SIZE * GAME1_SIZE; i++) {
+			flags.push(true);
+		}
+		setHoverStyle($('#game_section1 td img'), flags);
+        if (source==target){
+            return;
+        }
+		exchange($(source).parent(),
+			$(target).parent(), game1_check);
+	}
+	// console.log('end', e);
+}
+
 $(document).ready(function() {
 	initGame1();
+	// document.addEventListener('mousedown', ontouchstart);
+	document.addEventListener('touchstart', ontouchstart);
+	// document.addEventListener('mousemove', ontouchmove);
+	document.addEventListener('touchmove', ontouchmove);
+	// document.addEventListener('mouseup', ontouchend);
+	document.addEventListener('touchend', ontouchend);
 });
