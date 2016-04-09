@@ -194,11 +194,11 @@ function ontouchstart(e) {
 }
 
 function ontouchmove(e) {
-	if (!flag_on_touch) {
-		return;
-	}
-	if (e.srcElement.tagName == 'IMG' || e.srcElement.tagName == 'td') {
+    if (e.srcElement.tagName == 'IMG' || e.srcElement.tagName == 'td') {
 		e.preventDefault();
+	}
+    if (!flag_on_touch) {
+		return;
 	}
 	if (e.srcElement.tagName != 'IMG') {
 		return;
