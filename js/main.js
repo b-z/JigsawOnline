@@ -157,6 +157,8 @@ function game1_check() {
 		}
 	});
     if (result){
+        flag_on_touch = false;
+        flag_can_move = false;
         alert('yeah!');
     }
 	return result;
