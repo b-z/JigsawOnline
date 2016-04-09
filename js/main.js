@@ -207,6 +207,8 @@ function ontouchmove(e) {
 	var y = e.changedTouches[e.changedTouches.length - 1].clientY;
 	var source = e.srcElement;
 	var target = document.elementFromPoint(x, y);
+
+
 	if (stage == 1) {
 		var flags = [];
 		for (var i = 0; i < GAME1_SIZE * GAME1_SIZE; i++) {
@@ -237,9 +239,10 @@ function ontouchend(e) {
 			flags.push(true);
 		}
 		setHoverStyle($('#game_section1 td img'), flags);
-        if (source==target){
+        if (source==target || target.tagName != 'IMG'){
             return;
         }
+
 		exchange($(source).parent(),
 			$(target).parent(), game1_check);
 	}
