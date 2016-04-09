@@ -69,7 +69,7 @@ function game1Random() {
 	};
 	var ints = randomInts(GAME1_SIZE * GAME1_SIZE);
 	for (var i = 0; i < GAME1_SIZE * GAME1_SIZE; i++) {
-		animate(i + 1, limit, ints, 4);
+		animate(i + 1, limit, ints, 5);
 	}
 }
 
@@ -86,7 +86,7 @@ function animate(idx, limit, ints, count) {
 			setTimeout(function() {
 				$('#game1_img' + idx + '_container').html(game1_img_list[ints[idx - 1] - 1]);
 			}, 500 * Math.random());
-		}, Math.floor(500 * Math.random()));
+		}, Math.floor(250 * Math.random()));
 		return;
 	}
 	setTimeout(function() {
@@ -98,10 +98,10 @@ function animate(idx, limit, ints, count) {
 		var transX = transXlow + Math.random() * (transXhigh - transXlow);
 		var transY = transYlow + Math.random() * (transYhigh - transYlow);
 		$('#game1_img' + idx + '_container')[0].children[0].style.transform =
-			'translate(' + 0.5 * transX + 'px,' + 0.5 * transY + 'px)' +
+			'translate(' + 1 * transX + 'px,' + 1 * transY + 'px)' +
 			'rotate(' + (-360 + Math.random() * 720) + 'deg) ';
 		animate(idx, limit, ints, count - 1);
-	}, Math.floor(500 * Math.random()));
+	}, Math.floor(250 * Math.random()));
 }
 
 function countdown(item, time, foo) {
