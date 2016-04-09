@@ -136,9 +136,9 @@ function exchange(container1, container2, foo) {
 		var tmp = container1.children();
 		container1.html(container2.children());
 		container2.html(tmp);
+        flag_can_move = true;
+        flag_on_touch = false;
 		foo();
-		flag_can_move = true;
-		flag_on_touch = false;
 	}, 200);
 	// setTimeout(function(){
 	//     var tmp = container1.children();
@@ -151,7 +151,6 @@ function game1_check() {
 	var imgs = $('#game_section1 td').children().children();
 	var result = true;
 	imgs.each(function(i, e) {
-		console.log(e);
 		if ($(e).attr('id').split('img')[1] != 1 + i + '') {
 			result = false;
 		}
@@ -159,6 +158,7 @@ function game1_check() {
     if (result){
         flag_on_touch = false;
         flag_can_move = false;
+        // console.log(flag_can_move)
         alert('yeah!');
     }
 	return result;
