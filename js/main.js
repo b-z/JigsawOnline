@@ -98,7 +98,7 @@ function animate(idx, limit, ints, count) {
 		var transX = transXlow + Math.random() * (transXhigh - transXlow);
 		var transY = transYlow + Math.random() * (transYhigh - transYlow);
 		$('#game1_img' + idx + '_container')[0].children[0].style.transform =
-			'translate(' + 1.5 * transX + 'px,' + 1.5 * transY + 'px)' +
+			'translate(' + 0.5 * transX + 'px,' + 0.5 * transY + 'px)' +
 			'rotate(' + (-360 + Math.random() * 720) + 'deg) ';
 		animate(idx, limit, ints, count - 1);
 	}, Math.floor(500 * Math.random()));
