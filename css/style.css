@@ -89,7 +89,7 @@ td div img {
 	-webkit-transition: -webkit-transform 0.2s, border-radius 0.2s, opacity 0.2s;
 	-o-transition: -o-transform 0.2s, border-radius 0.2s, opacity 0.2s;
 }
-#game_section1{
+#game_section1, #game_section2{
     max-width: 30em;
     margin: auto;
 }
