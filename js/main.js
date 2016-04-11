@@ -1,7 +1,9 @@
 var GAME1_SIZE = 3;
 var GAME2_SIZE = 3;
+var GAME3_SIZE = 5;
 var game1_img_list = [];
 var game2_img_list = [];
+var game3_img_list = [];
 var flag_can_move = false;
 var flag_on_touch = false;
 var stage = 1;
@@ -60,10 +62,11 @@ function loadImage() {
 
 function checkLoad(count, section) {
 	console.log(count);
-	var txt = '.';
-	for (var i = 0; i < count % 4; i++) {
-		txt += '.';
+	var txt = '99.';
+	for (var i = 0; i < count; i++) {
+		txt += '9';
 	}
+    txt+='%';
 	$('#loading span')[0].innerHTML = txt;
 	if (count == 0) {
 		$('#loading').hide();
@@ -105,7 +108,7 @@ function game2Random() {
 	var idx2;
 	while (true) {
 		idx2 = Math.ceil(Math.random() * GAME2_SIZE * GAME2_SIZE);
-		console.log(idx1, idx2);
+		// console.log(idx1, idx2);
 		if (game2CheckValid(idx1, idx2)) {
 			container2 = $('#game2_img' + idx2 + '_container');
 			var childIdx = container2.children().attr('id').split('img')[1] - 0;
@@ -450,6 +453,9 @@ function onkeydown(e) {
 		game1Finish();
 	}
 	if (stage == 2) {
+        if (!flag_can_move){
+            return;
+        }
 		if (e.keyCode == 38) {
 			game2Move('up');
 		}
