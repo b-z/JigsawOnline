@@ -8,6 +8,7 @@ var flag_can_move = false;
 var flag_on_touch = false;
 var stage = 1;
 var loadCount = GAME1_SIZE * GAME1_SIZE + GAME2_SIZE * GAME2_SIZE + 2;
+var loadCountTotal = loadCount;
 var game2_random_move_count = 100;
 var game2_last_choose = 0;
 var touch_start_point={x:0,y:0};
@@ -63,7 +64,7 @@ function loadImage() {
 function checkLoad(count, section) {
 	console.log(count);
 	var txt = '99.';
-	for (var i = 0; i < count; i++) {
+	for (var i = 0; i < loadCountTotal-count; i++) {
 		txt += '9';
 	}
     txt+='%';
