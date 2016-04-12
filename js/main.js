@@ -57,6 +57,7 @@ function loadImage(c) {
 	} else {
 		$('#start_msg').html(start_msg[1]);
 	}
+	$('#loading').show();
 	$('#choose_character').hide();
 	$('#game_section1 #img_area').html('<img src="img/Lenna.png" width=100% onload="loadCount--;checkLoad(loadCount, 1);">');
 	$('#game_cache').append('<img class="game1_imgback" src="img/back2.jpg" width=100% onload="loadCount--;checkLoad(loadCount, 1);">');
