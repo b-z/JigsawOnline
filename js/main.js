@@ -219,7 +219,7 @@ function game3RandomFlip(idx) {
 				game3Start();
 			}
 		});
-	}, 500 + Math.random() * 1000);
+	}, 1000 + Math.random() * 1000);
 }
 
 function game3Start() {
