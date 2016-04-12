@@ -1,6 +1,6 @@
 var GAME1_SIZE = 3;
 var GAME2_SIZE = 3;
-var GAME3_SIZE = 5;
+var GAME3_SIZE = 3;
 var game1_img_list = [];
 var game2_img_list = [];
 var game3_img_list = [];
@@ -167,7 +167,7 @@ function game3RandomFlip(idx) {
 				game3Start();
 			}
 		});
-	}, 3000 + Math.random() * 1000);
+	}, 500 + Math.random() * 1000);
 }
 
 function game3Start() {
