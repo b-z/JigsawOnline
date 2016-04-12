@@ -1,3 +1,4 @@
+var character;
 var GAME1_SIZE = 3;
 var GAME2_SIZE = 3;
 var GAME3_SIZE = 3;
@@ -18,6 +19,23 @@ var touch_start_point = {
 	x: 0,
 	y: 0
 };
+var stages = ['第一关: 自由拼图', '第二关: 移动拼图', '第三关: 记忆翻图','(*^ ^)'];
+var start_msg = ['春天的脚步渐渐近了，一个埋藏在菁菁心里的秘密偷偷萌芽。\
+	辗转多日，菁菁鼓起勇气决定告诉小华这个秘密。\
+	她拿出偷偷珍藏的小华的照片，默默演习，但是她发现—照片—碎了💔。\
+	同学们快来帮帮菁菁吧，在规定时间内成功帮助菁菁，菁菁会给大家发奖品哦~',
+	'春天的脚步渐渐近了，一个埋藏在小华心里的秘密偷偷萌芽。\
+	辗转多日，小华鼓起勇气决定告诉菁菁这个秘密。\
+	他拿出偷偷珍藏的婧婧的照片，默默演习，但是他发现—照片—碎了💔。\
+	同学们快来帮帮小华吧，在规定时间内成功帮助小华，小华会给大家发奖品哦~'
+];
+var instructions = ['点击小图，可自由交换小图位置，直至将菁菁小华合照恢复，限时……',
+	'点击或滑动小图至空格处，变换小图位置，直至恢复小华靓照，限时……',
+	'你有……秒记忆“公益文化周”四字的位置，时间届至图片翻转并交换位置。\
+	你需要点击图片，帮助菁菁找出“益见清心”四字，所翻文字如错误，普通将重新翻转并交换，限时……',
+	'恭喜你成功帮助菁菁完成任务，菁菁要送你(……)点击了解领取方式。菁菁偷偷告诉你她的秘密哦: 小华，志愿文化周开始啦，4月23日我们C楼见~',
+	'闯关成功的同学，只要将游戏分享，就可以登记赢取礼物。初步想法，每位闯关成功的学生就可以获得一份小礼物（比如，一个塑料书袋附上志愿文化周游戏路线图，一个志愿公益卡套等，登记信息的学生可以参与抽奖，设置一二三等奖）'
+];
 
 function randomInts(range) {
 	// 产生[1，range]的随机整数
@@ -32,7 +50,14 @@ function randomInts(range) {
 	return res;
 }
 
-function loadImage() {
+function loadImage(c) {
+	character = c;
+	if (c == '菁菁') {
+		$('#start_msg').html(start_msg[0]);
+	} else {
+		$('#start_msg').html(start_msg[1]);
+	}
+	$('#choose_character').hide();
 	$('#game_section1 #img_area').html('<img src="img/Lenna.png" width=100% onload="loadCount--;checkLoad(loadCount, 1);">');
 	$('#game_cache').append('<img class="game1_imgback" src="img/back2.jpg" width=100% onload="loadCount--;checkLoad(loadCount, 1);">');
 	$('#game_cache').append('<img class="game3_imgback" src="img/back.jpg" width=100% onload="loadCount--;checkLoad(loadCount, 1);">');
@@ -101,8 +126,32 @@ function checkLoad(count, section) {
 	if (count == 0) {
 		$('#loading').hide();
 		// initGame1();
-		$('#game_section' + section).show();
-		countdown($('#game_section' + section + ' .countdown'), 5, game1Random);
+		$('#start_game').show();
+
+	}
+}
+
+function startgame() {
+	// initGame1();
+	$('#start_msg').hide();
+	$('#start_game').hide();
+	$('.stage').html(stages[stage - 1]);
+	$('.instruction').html(instructions[stage - 1]);
+	$('#modal').openModal();
+}
+
+function startLevel(){
+	if (stage==1){
+		$('#game_section1').show();
+		countdown($('#game_section' + 1 + ' .countdown'), 3, game1Random);
+	}else if (stage==2){
+		$('#game_section2').show();
+		$('#game_section2 .mask').hide();
+		game2Random();
+	}else if (stage==3){
+		$('#game_section3').show();
+		$('#game_section3 .mask').hide();
+		game3Random();
 	}
 }
 
@@ -196,9 +245,9 @@ function game3Click(idx) {
 					}
 					var container1 = $('#game3_img' + idx1 + '_container');
 					var container2 = $('#game3_img' + idx2 + '_container');
-					var t = game3_list[idx1-1];
-					game3_list[idx1-1] = game3_list[idx2-1];
-					game3_list[idx2-1] = t;
+					var t = game3_list[idx1 - 1];
+					game3_list[idx1 - 1] = game3_list[idx2 - 1];
+					game3_list[idx2 - 1] = t;
 					exchange(container1, container2, function() {
 						flag_can_move = true;
 					})
@@ -212,12 +261,12 @@ function game3Click(idx) {
 
 function game3Check() {
 	var c = 0;
-	for (var i=1;i<=GAME3_SIZE*GAME3_SIZE;i++){
-		if (game3_word.indexOf(game3Status(i))>=0){
+	for (var i = 1; i <= GAME3_SIZE * GAME3_SIZE; i++) {
+		if (game3_word.indexOf(game3Status(i)) >= 0) {
 			c++;
 		}
 	}
-	if (c==game3_word.length){
+	if (c == game3_word.length) {
 		game3Finish();
 	}
 }
@@ -416,28 +465,40 @@ function game1Finish() {
 	flag_on_touch = false;
 	flag_can_move = false;
 	stage = 2;
-	alert('yeah!');
+	// alert('yeah!');
 	$('#game_section1').hide();
-	$('#game_section2').show();
-	$('#game_section2 .mask').hide();
-	game2Random();
+	$('.stage').html(stages[stage - 1]);
+	$('.instruction').html(instructions[stage - 1]);
+	$('#modal').openModal();
 }
 
 function game2Finish() {
 	flag_on_touch = false;
 	flag_can_move = false;
 	stage = 3;
-	alert('yeah!');
+	// alert('yeah!');
 	$('#game_section2').hide();
-	$('#game_section3').show();
-	$('#game_section3 .mask').hide();
-	game3Random();
+	$('.stage').html(stages[stage - 1]);
+	$('.instruction').html(instructions[stage - 1]);
+	$('#modal').openModal();
 }
 
 function game3Finish() {
 	flag_on_touch = false;
 	flag_can_move = false;
-	alert('yeah!');
+	// alert('yeah!');
+	$('.stage').html(stages[3]);
+	$('.instruction').html(instructions[3]);
+	var txt = '<a onclick="showAward();" class=" modal-action modal-close waves-effect waves-green btn-flat">我要领奖!</a>\
+	<a onclick="location=location;" class=" modal-action modal-close waves-effect waves-green btn-flat">我要重玩!</a>';
+	$('.modal-footer').html(txt);
+	$('#modal').openModal();
+}
+
+function showAward() {
+	$('.instruction').html(instructions[4]);
+	var txt = '<a onclick="location=location;" class=" modal-action modal-close waves-effect waves-green btn-flat">我要重玩!</a>';
+	$('.modal-footer').html(txt);
 }
 
 function setHoverStyle(elements, remove) {
@@ -629,7 +690,7 @@ function onkeydown(e) {
 
 $(document).ready(function() {
 	// initGame1();
-	loadImage();
+	// loadImage();
 	// document.addEventListener('mousedown', ontouchstart);
 	document.addEventListener('touchstart', ontouchstart);
 	// document.addEventListener('mousemove', ontouchmove);
@@ -638,3 +699,11 @@ $(document).ready(function() {
 	document.addEventListener('touchend', ontouchend);
 	document.addEventListener('keydown', onkeydown);
 });
+
+var bg = 0;
+function changeBackground(){
+	bg%=5;
+	bg++;
+	$('body').css('background-image','url(\'img/'+bg+'.jpg\')');
+	$('body').css('background-size','cover');
+}
