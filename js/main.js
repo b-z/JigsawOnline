@@ -136,12 +136,14 @@ function startgame() {
 	// initGame1();
 	$('#start_msg').hide();
 	$('#start_game').hide();
+	$('.gamearea').hide();
 	$('.stage').html(stages[stage - 1]);
 	$('.instruction').html(instructions[stage - 1]);
 	$('#modal').openModal();
 }
 
 function startLevel(){
+	$('.gamearea').show();
 	if (stage==1){
 		$('#game_section1').show();
 		countdown($('#game_section' + 1 + ' .countdown'), 3, game1Random);
@@ -467,6 +469,7 @@ function game1Finish() {
 	flag_can_move = false;
 	stage = 2;
 	// alert('yeah!');
+	$('.gamearea').hide();
 	$('#game_section1').hide();
 	$('.stage').html(stages[stage - 1]);
 	$('.instruction').html(instructions[stage - 1]);
@@ -478,6 +481,7 @@ function game2Finish() {
 	flag_can_move = false;
 	stage = 3;
 	// alert('yeah!');
+	$('.gamearea').hide();
 	$('#game_section2').hide();
 	$('.stage').html(stages[stage - 1]);
 	$('.instruction').html(instructions[stage - 1]);
@@ -488,6 +492,7 @@ function game3Finish() {
 	flag_on_touch = false;
 	flag_can_move = false;
 	// alert('yeah!');
+	$('.gamearea').hide();
 	$('.stage').html(stages[3]);
 	$('.instruction').html(instructions[3]);
 	var txt = '<a onclick="showAward();" class=" modal-action modal-close waves-effect waves-green btn-flat">我要领奖!</a>\
