@@ -139,7 +139,7 @@ function startgame() {
 	$('.gamearea').hide();
 	$('.stage').html(stages[stage - 1]);
 	$('.instruction').html(instructions[stage - 1]);
-	$('#modal').openModal();
+	$('#modal').openModal({dismissible: false});
 }
 
 function startLevel(){
@@ -473,7 +473,7 @@ function game1Finish() {
 	$('#game_section1').hide();
 	$('.stage').html(stages[stage - 1]);
 	$('.instruction').html(instructions[stage - 1]);
-	$('#modal').openModal();
+	$('#modal').openModal({dismissible: false});
 }
 
 function game2Finish() {
@@ -485,7 +485,7 @@ function game2Finish() {
 	$('#game_section2').hide();
 	$('.stage').html(stages[stage - 1]);
 	$('.instruction').html(instructions[stage - 1]);
-	$('#modal').openModal();
+	$('#modal').openModal({dismissible: false});
 }
 
 function game3Finish() {
@@ -498,7 +498,7 @@ function game3Finish() {
 	var txt = '<a onclick="showAward();" class=" modal-action modal-close waves-effect waves-green btn-flat">我要领奖!</a>\
 	<a onclick="location=location;" class=" modal-action modal-close waves-effect waves-green btn-flat">我要重玩!</a>';
 	$('.modal-footer').html(txt);
-	$('#modal').openModal();
+	$('#modal').openModal({dismissible: false});
 }
 
 function showAward() {
