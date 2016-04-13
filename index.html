@@ -2,63 +2,106 @@
 <html>
 
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title></title>
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-    <link type="text/css" rel="stylesheet" href="css/style.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title></title>
+	<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+	<link type="text/css" rel="stylesheet" href="css/style.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 </head>
 
 <body>
-    <!-- nav bar -->
-    <nav>
-        <div class="nav-wrapper">
-            <div class="container">
-                <span class="brand-logo center">喵</span>
-                <ul id="nav-mobile" class="right">
-                    <!-- <li class="waves-effect waves-orange" id="panel_btn_activity"><a onclick="openPanel('activity');">活动介绍</a></li> -->
-                    <!-- <li class="waves-effect waves-teal" id="panel_btn_coach"><a onclick="openPanel('coach');">教练介绍</a></li> -->
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- nav bar end -->
-    <!-- container -->
-    <main>
-        <div class="container">
-            <h4 id="loading" class="center">loading(&gt;&lt;)<span></span></h4>
-            <div id="game_section1" class="section" style="display:none;">
-                <div class="game_section_area">
-                    <table border="0">
-                    </table>
-                    <div id="img_area" class="mask"></div>
-                    <div class="valign-wrapper mask" style="opacity:0.5;">
-                        <div class="valign countdown" style="display:none;"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- <div id="back_btn" class="fixed-action-btn" style="display:none;" onclick="clickBack();">
+	<!-- nav bar -->
+	<nav>
+		<div class="nav-wrapper">
+			<div class="container">
+				<span class="brand-logo center">130130</span>
+				<ul id="nav-mobile" class="right">
+					<!-- <li class="waves-effect waves-orange" id="panel_btn_activity"><a onclick="openPanel('activity');">活动介绍</a></li> -->
+					<!-- <li class="waves-effect waves-teal" id="panel_btn_coach"><a onclick="openPanel('coach');">教练介绍</a></li> -->
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- nav bar end -->
+	<!-- container -->
+	<main>
+		<div class="container">
+			<div id="modal" class="modal">
+				<div class="modal-content">
+					<h4 class="stage"></h4>
+					<p class="instruction"></p>
+				</div>
+				<div class="modal-footer">
+					<a onclick="startLevel();" class=" modal-action modal-close waves-effect waves-green btn-flat">我知道啦~</a>
+				</div>
+			</div>
+			<div id="choose_character">
+				<h4>本宝宝是~</h4>
+				<a class="waves-effect waves-light btn" onclick="loadImage('菁菁');">菁菁(^^)</a>
+				<a class="waves-effect waves-light btn" onclick="loadImage('小华');">小华(→ →)</a>
+			</div>
+			<div id="game_cache" class="hide"></div>
+			<h6 id="start_msg"></h6>
+			<a id="start_game" class="waves-effect waves-light btn" onclick="startgame();" style="display:none;">进入游戏</a>
+			<h4 id="loading" class="center" style="display:none;">loading(&gt;&lt;)
+				<br>
+				<span></span>
+			</h4>
+			<h5 class="stage center gamearea"></h5>
+			<div id="game_section1" class="section" style="display:none;">
+				<div class="game_section_area">
+					<table border="0">
+					</table>
+					<div id="img_area" class="mask"></div>
+					<div class="valign-wrapper mask" style="opacity:0.5;">
+						<div class="valign countdown" style="display:none;"></div>
+					</div>
+				</div>
+			</div>
+			<div id="game_section2" class="section" style="display:none;">
+				<div class="game_section_area">
+					<table border="0">
+					</table>
+					<!-- <div id="img_area" class="mask"></div> -->
+					<div class="valign-wrapper mask" style="opacity:0.5;">
+						<div class="valign countdown" style="display:none;"></div>
+					</div>
+				</div>
+			</div>
+			<div id="game_section3" class="section" style="display:none;">
+				<div class="game_section_area">
+					<table border="0">
+					</table>
+					<!-- <div id="img_area" class="mask"></div> -->
+					<div class="valign-wrapper mask" style="opacity:0.5;">
+						<div class="valign countdown" style="display:none;"></div>
+					</div>
+				</div>
+			</div>
+			<div class="instruction gamearea" class="center section"></div>
+			<a class="waves-effect waves-light btn" onclick="changeBackground();">点击更换背景</a>
+			<!-- <div id="back_btn" class="fixed-action-btn" style="display:none;" onclick="clickBack();">
                 <a class="btn-floating btn-large">
                     <img src='icon/left.png' width=55.5>
                 </a>
             </div> -->
-        </div>
-    </main>
-    <!-- container end -->
-    <!-- footer -->
-    <footer class="footer-copyright">
-        <div class="container">
-            版权所有 &copy; 2016 汪汪
-        </div>
-    </footer>
+		</div>
+	</main>
+	<!-- container end -->
+	<!-- footer -->
+	<footer class="footer-copyright">
+		<div class="container">
+			版权所有 &copy; 2016 汪汪
+		</div>
+	</footer>
 
-    <!-- footer end -->
-    <script>
-        var page = 'coach';
-    </script>
-    <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+	<!-- footer end -->
+	<script>
+		var page = 'coach';
+	</script>
+	<script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+	<script type="text/javascript" src="js/materialize.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 </body>
 
 </html>
